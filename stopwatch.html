@@ -23,6 +23,7 @@ Assignment: HW6 - JQuery
             var $buttonReset = $('#button-reset');
             var $timer = $('#timer');
             var interval;
+            var animationInterval;
 
             $timer.addClass('timer-background');
 
@@ -43,14 +44,28 @@ Assignment: HW6 - JQuery
                 'cursor': 'pointer'
             });
 
+            function animateTimer() {
+                $timer.animate({ opacity: 0.8 }, 500, function() {
+                    $timer.animate({ opacity: 1.0 }, 500, function() {
+                        if (interval) {
+                            animateTimer();
+                        }
+                    });
+                });
+            }
+
             $buttonStart.on('click', function () {
                 clearInterval(interval);
+                clearInterval(animationInterval);
                 interval = setInterval(startTimer, 10);
                 $timer.css('background-color', 'rgb(51, 165, 50)');
+                animateTimer();
             });
 
             $buttonStop.on('click', function () {
                 clearInterval(interval);
+                clearInterval(animationInterval);
+                $timer.stop(true, true).css('opacity', 1.0);
                 if (seconds !== "00" || tens !== "00") {
                     $timer.css('background-color', 'rgb(251, 18, 47)');
                 }
@@ -58,10 +73,12 @@ Assignment: HW6 - JQuery
 
             $buttonReset.on('click', function () {
                 clearInterval(interval);
+                clearInterval(animationInterval);
                 tens = "00";
                 seconds = "00";
                 $appendTens.html(tens);
                 $appendSeconds.html(seconds);
+                $timer.stop(true, true).css('opacity', 1.0);
                 $timer.css('background-color', 'grey');
             });
 
