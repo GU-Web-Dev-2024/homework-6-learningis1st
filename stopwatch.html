@@ -1,3 +1,8 @@
+<!--
+Name: Yijia Chen
+Class: CPSC 332
+Assignment: HW6 - JQuery
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +25,23 @@
             var interval;
 
             $timer.addClass('timer-background');
+
+            // Add class to each button
+            $buttonStart.addClass('timer-button');
+            $buttonStop.addClass('timer-button');
+            $buttonReset.addClass('timer-button');
+
+            // Style buttons using a single object literal
+            $('.timer-button').css({
+                'padding': '10px 20px',
+                'margin': '5px',
+                'border': 'none',
+                'border-radius': '5px',
+                'background-color': '#007BFF',
+                'color': 'white',
+                'font-size': '16px',
+                'cursor': 'pointer'
+            });
 
             $buttonStart.on('click', function () {
                 clearInterval(interval);
