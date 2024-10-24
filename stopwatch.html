@@ -19,15 +19,22 @@
             var $buttonStart = $('#button-start');
             var $buttonStop = $('#button-stop');
             var $buttonReset = $('#button-reset');
+            var $timer = $('#timer');
             var interval;
+
+            $timer.addClass('timer-background');
 
             $buttonStart.on('click', function () {
                 clearInterval(interval);
                 interval = setInterval(startTimer, 10);
+                $timer.css('background-color', 'rgb(51, 165, 50)');
             });
 
             $buttonStop.on('click', function () {
                 clearInterval(interval);
+                if (seconds !== "00" || tens !== "00") {
+                    $timer.css('background-color', 'rgb(251, 18, 47)');
+                }
             });
 
             $buttonReset.on('click', function () {
@@ -36,6 +43,7 @@
                 seconds = "00";
                 $appendTens.html(tens);
                 $appendSeconds.html(seconds);
+                $timer.css('background-color', 'grey');
             });
 
             function startTimer() {
@@ -63,13 +71,20 @@
             }
         });
     </script>
+    <style>
+        .timer-background {
+            background-color: grey;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
 <div class="wrapper">
     <h1>Stopwatch</h1>
     <h2>Vanilla JavaScript Stopwatch</h2>
-    <p><span id="seconds">00</span>:<span id="tens">00</span></p>
+    <p id="timer"><span id="seconds">00</span>:<span id="tens">00</span></p>
     <button id="button-start">Start</button>
     <button id="button-stop">Stop</button>
     <button id="button-reset">Reset</button>
